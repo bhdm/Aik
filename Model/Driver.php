@@ -3,7 +3,7 @@ namespace Model;
 
     class Driver extends Mysqli{
 
-        public function find($type, $searchId){
+        static public function find($type, $searchId){
             $first = mb_substr($type,0,1);//первая буква
             $last = mb_substr($type,1);//все кроме первой буквы
             $first = strtoupper($first);
@@ -37,7 +37,7 @@ namespace Model;
             return $data;
         }
 
-        public function findAll($type){
+        static public function findAll($type){
             $first = mb_substr($type,0,1);//первая буква
             $last = mb_substr($type,1);//все кроме первой буквы
             $first = strtoupper($first);

@@ -12,6 +12,8 @@ class Mysqli{
     static protected $mysqli;
 
     public function connect(){
+
+        # логины и пароли от локалки .0.
         $this->login = 'root';
         $this->password = '3245897';
         $this->database = 'aikido';
@@ -20,6 +22,7 @@ class Mysqli{
         self::$mysqli->set_charset("utf8");
 
         if (self::$mysqli->connect_error) {
+            # при ошибке должно отправить на почту
             mail('tulupov.m@gmail.com','AIKIDO LOG','ERROR:Driver'.'Connect Error (' . self::$mysqli->connect_errno . ') ' . self::$mysqli->connect_error );
             exit;
         }
