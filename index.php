@@ -23,6 +23,7 @@ ini_set('display_startup_errors', 1);
 
 
 
+
     # Далее код
     $db = new Driver();
     $db->connect();

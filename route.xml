@@ -1,0 +1,14 @@
+<route>
+    <item>
+        <path>instructors</path>
+        <controller>Instructor</controller>
+    </item>
+    <item>
+        <path>groups</path>
+        <controller>Group</controller>
+    </item>
+    <item>
+        <path>Room</path>
+        <controller>Room</controller>
+    </item>
+</route>
