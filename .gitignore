@@ -1,3 +1,4 @@
 .idea
 .idea/
 atlassian-ide-plugin.xml
+vendor/
