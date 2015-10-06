@@ -11,14 +11,19 @@
     <table class="table">
         <tr>
             <th>Группа</th>
-            <th>Зал</th>
-            <th>инструктор</th>
+<!--            <th>Зал</th>-->
+<!--            <th>инструктор</th>-->
+            <?php
+            for($i = 1 ; $i <= 12 ; $i ++ ){
+                echo '<th>'.getMonthShortName($i).'</th>';
+            }
+            ?>
         </tr>
         <?php
         foreach ($data as $i){
             echo '<tr>';
-                echo '<td>'.$i->getTitle().'</td>';
-                echo '<td>'.$i->getRoom()->getTitle().'</td>';
+//                echo '<td>'.$i->getTitle().'</td>';
+//                echo '<td>'.$i->getRoom()->getTitle().'</td>';
                 echo '<td>'.$i->getInstructor()->getLastName().'</td>';
             echo '</tr>';
         }
