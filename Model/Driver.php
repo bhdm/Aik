@@ -70,4 +70,41 @@ namespace Model;
 
             return $data;
         }
+
+        /**
+         * @param $type String Instructor|Room|Group
+         * @param $id
+         * @param $date
+         * @return array
+         */
+        static public function payment($type, $id, $date){
+            $dateStart = $date->format('Y-m').'-01 00:00:00';
+            $date->modify('+ 10 month');
+            $dateEnd = $date->format('Y-m').'-01 00:00:00';
+            switch($type){
+                case 'Instructor': $where = 'g.ID_INSTRUCTOR = '.$id; break;
+                case 'Room': $where = 'g.ID_ROOM = '.$id; break;
+                case 'Group': $where = 'g.ID = '.$id; break;
+            }
+            $query =
+                "
+                SELECT p.YEAR pyear, p.MONTH pmonth, COUNT( p.ID ) amount, SUM( p.SUMMA ) sum
+                FROM client c
+                LEFT JOIN payment p ON p.ID_CLIENT = c.ID
+                LEFT JOIN groupp g ON g.ID = c.ID_GROUP
+                WHERE $where AND p.SUMMA > 0
+                GROUP BY p.YEAR, p.MONTH
+                ORDER BY p.YEAR DESC , p.MONTH DESC
+                LIMIT 12
+                ";
+            $result = Mysqli::$mysqli->query($query);
+            $data = array();
+            while ($row = $result->fetch_assoc()){
+                $key = $row['pyear'].'-'.$row['pmonth'];
+                $data[$key] = $row;
+            }
+
+            return $data;
+        }
+
     }

@@ -9,7 +9,7 @@ class Mysqli{
 
     private $database;
 
-    static protected $mysqli;
+    static public $mysqli;
 
     public function connect(){
 

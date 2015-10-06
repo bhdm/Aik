@@ -1,6 +1,9 @@
 <?php
 namespace Controller;
+
 use Model\Driver;
+use Model\InstructorPrices;
+use Model\RoomPrices;
 
 /**
  * Class instructor
@@ -9,14 +12,26 @@ use Model\Driver;
  */
 class instructor{
 
-    protected $instructors;
-
-    public function __construct(){
+    public function getData(){
         # Получили всех инструкторов
-        $this->instructors = Driver::findAll('instructor');
+        $instructors = Driver::findAll('instructor');
+        $payments = array();
+        # Получить все патежи клиентов
+        foreach ($instructors as $i){
+            $payments[$i->getId()] = Driver::payment('Instructor', $i->getId(),new \DateTime());
+        }
+        # Получить стоимость аренды помещения
+        $roomPrices = new RoomPrices();
 
-        # Теперь расчитываем доход помесячно
+        # Получить ЗП инструктора
+        $instructorPrices = new InstructorPrices();
 
+        return array(
+            'instructors' => $instructors,
+            'payments' => $payments,
+            'roomPrices' => $roomPrices,
+            'instructorPrices' => $instructorPrices,
+        );
     }
 }
 
