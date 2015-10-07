@@ -29,7 +29,7 @@ require_once 'functions.php';
     $db = new Driver();
     $db->connect();
 //    $data = $db->find('group', 110);
-    $data = $db->findAll('group', 110);
+    $groups = $db->findAll('group', 110);
 
 
     include 'Views/main.php';
