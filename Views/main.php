@@ -8,6 +8,9 @@
 </head>
 
 <body>
+<?php
+    include_once 'header.php';
+?>
 <div class="container">
     <table class="table">
         <tr>
@@ -28,7 +31,7 @@
             echo '<tr>';
             echo '<td class="group-title" id="group-'.$key.'">'.$key,' '.$group->getTitle().'</td>';
             echo '<td class="group-title" colspan="12"></td>';
-            echo '<td class="group-title"></td>';
+            echo '<td class="group-title"><a href="#group-'.$key.'">Прикрепить</a></td>';
             echo '</tr>';
 
             # теперь расчеты
@@ -51,11 +54,11 @@
             $tmp2['plan'] = 0;
             $tmp2['fact'] = 0;
             for($i = 1 ; $i <= 12 ; $i ++ ){
-                echo '<td class="text-center">'.($userCount[$i]*$group->getPrice()).' / '.$userSale[$i].'</td>';
+                echo '<td class="text-center">'.($userCount[$i]*$group->getPrice()).'<br />'.$userSale[$i].'</td>';
                 $tmp2['plan'] += $userCount[$i]*$group->getPrice();
                 $tmp2['fact'] += $userSale[$i];
             }
-            echo '<td class="text-center">'.$tmp2['plan'].' / '.$tmp2['fact'].'</td>';
+            echo '<td class="text-center">'.$tmp2['plan'].' <br /> '.$tmp2['fact'].'</td>';
             echo '</tr>';
 
             echo '<tr class="group-'.$key.'">';
@@ -75,11 +78,11 @@
             $tmp4['plan'] = 0;
             $tmp4['fact'] = 0;
             for($i = 1 ; $i <= 12 ; $i ++ ){
-                echo '<td class="text-center">'.$userSalary[$i]['plan'].' / '.$userSalary[$i]['fact'].'</td>';
+                echo '<td class="text-center">'.$userSalary[$i]['plan'].' <br /> '.$userSalary[$i]['fact'].'</td>';
                 $tmp2['plan'] += $userSalary[$i]['plan'];
                 $tmp2['fact'] += $userSalary[$i]['fact'];
             }
-            echo '<td class="text-center">'.$tmp4['plan'].' / '.$tmp4['fact'].'</td>';
+            echo '<td class="text-center">'.$tmp4['plan'].' <br /> '.$tmp4['fact'].'</td>';
             echo '</tr>';
 
             echo '<tr class="group-'.$key.'">';
