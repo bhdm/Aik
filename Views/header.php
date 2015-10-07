@@ -6,7 +6,7 @@
             <a class="navbar-brand" href="#">По залам</a>
         </div>
         <div class="navbar-right">
-            <a class="navbar-brand" href="?pdf" target="_blank">В PDF</a>
+            <a class="navbar-brand" href="type=<?=$_GET['type']?>&pdf=1" target="_blank">В PDF</a>
         </div>
     </div>
 </nav>

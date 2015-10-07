@@ -26,7 +26,7 @@ require_once 'functions.php';
 
 
     if ($_GET['pdf'] == 1){
-        $htmlOut = file_get_contents('http://aik.loc/index.php');
+        $htmlOut = file_get_contents('http://aik.loc/index.php?type='.$_GET['type']);
         $mpdf=new mPDF('utf-8','A4-L','','',22,14,12,23,9,9);
 //        $mpdf->charset_in = 'utf-8';
         $mpdf->SetDisplayMode('fullpage');
@@ -37,8 +37,13 @@ require_once 'functions.php';
         # Далее код
         $db = new Driver();
         $db->connect();
-//    $data = $db->find('group', 110);
-        $groups = $db->findAll('group', 110);
-        include 'Views/main.php';
+
+        if ($_GET['type'] == 'group'){
+            $groups = $db->findAll('group');
+            include 'Views/main.php';
+        }elseif($_GET['type'] == 'instructor'){
+            $instructors = $db->findAll('instructor');
+            include 'Views/instructor.php';
+        }
     }
 

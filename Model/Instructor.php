@@ -13,6 +13,11 @@ class Instructor extends Driver{
 
     protected $phone;
 
+    protected $groups; /* Массив ID */
+
+    public function getTitle(){
+        return $this->lastName.' '.$this->firstName.' '.$this->surName;
+    }
 
     public function __construct($data = null){
         if ($data != null){
@@ -21,6 +26,19 @@ class Instructor extends Driver{
             $this->firstName = $data['FIRST_NAME'];
             $this->surName = $data['FATHERS_NAME'];
             $this->phone = $data['PHONE'];
+
+            $query = 'SELECT * FROM `groupp` g WHERE g.ID_INSTRUCTOR = '.$this->id.' ORDER BY g.ID ASC';
+            try{
+                $result = Mysqli::$mysqli->query($query);
+            }catch (\Exception $e){
+                $e->getCode().' / '.$e->getMessage();
+            }
+            while ($row = $result->fetch_assoc()){
+                $this->groups[] = $row['ID'];
+            }
+
+        }else{
+            $this->groups = array();
         }
     }
 
@@ -104,6 +122,22 @@ class Instructor extends Driver{
         $this->phone = $phone;
     }
 
-
+    public function getGroups(){
+        if ($this->groups == null){
+            $query = 'SELECT * FROM `groupp` g WHERE g.ID_INSTRUCTOR = '.$this->id.' ORDER BY g.ID ASC';
+            try{
+                $result = Mysqli::$mysqli->query($query);
+            }catch (\Exception $e){
+                $e->getCode().' / '.$e->getMessage();
+            }
+            while ($row = $result->fetch_assoc()){
+                $this->groups[] = $row['ID'];
+            }
+        }
+        if ($this->groups == null){
+            $this->groups = array();
+        }
+        return $this->groups;
+    }
 
 }
