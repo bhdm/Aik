@@ -101,7 +101,7 @@ class Driver extends Mysqli{
         $data = array();
         while ($row = $result->fetch_assoc()){
             $key = $row['pyear'].'-'.$row['pmonth'];
-            $data[$key] = $row;
+            $data[$key] = $row*1;
         }
 
         return $data;
@@ -124,7 +124,7 @@ class Driver extends Mysqli{
             $result = Mysqli::$mysqli->query($query);
             $lastData = null;
             $row = $result->fetch_assoc();
-            $data[$month] = $row['co'];
+            $data[$month] = $row['co']*1;
         }
         return $data;
     }
@@ -145,7 +145,7 @@ class Driver extends Mysqli{
             $result = Mysqli::$mysqli->query($query);
             $lastData = null;
             $row = $result->fetch_assoc();
-            $data[$month] = $row['co'];
+            $data[$month] = $row['co']*1;
         }
         return $data;
     }
@@ -235,7 +235,7 @@ class Driver extends Mysqli{
 
             }
 
-            $data[$month] = $priceArray;
+            $data[$month] = $priceArray*1;
         }
         return $data;
     }
@@ -268,7 +268,7 @@ class Driver extends Mysqli{
             $priceArray = $priceArray + $group['rate'];
 
 
-            $data[$month]['plan'] =  $priceArray;
+            $data[$month]['plan'] =  $priceArray*1;
 
             # Отнимаем штрафы
             $query = 'SELECT * FROM fine WHERE `date`>="'.$date1.'" AND date<"'.$date2.'" AND instructor_id='.$group['ID_INSTRUCTOR'];
@@ -284,7 +284,7 @@ class Driver extends Mysqli{
                 $priceArray += $fine['summa']/2;
             }
 
-            $data[$month]['fact'] =  $priceArray;
+            $data[$month]['fact'] =  $priceArray*1;
 
         }
         return $data;
