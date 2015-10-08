@@ -26,10 +26,10 @@ include_once 'header.php';
             <th>ИТОГО</th>
         </tr>
         <?php
-        foreach ($instructors as $key => $instructor){
+        foreach ($rooms as $key => $room){
             # Заголовок группы
             echo '<tr>';
-            echo '<td class="group-title" id="group-'.$key.'">'.$key,' '.$instructor->getTitle().'</td>';
+            echo '<td class="group-title" id="group-'.$key.'">'.$key,' '.$room->getTitle().'</td>';
             echo '<td class="group-title" colspan="12"></td>';
             echo '<td class="group-title"><a href="#group-'.$key.'">Прикрепить</a></td>';
             echo '</tr>';
@@ -39,7 +39,7 @@ include_once 'header.php';
             echo '<tr class="group-'.$key.'">';
             echo '<td>Кол-во человек</td>';
             $userCount = array();
-            foreach($instructor->getGroups() as $id){
+            foreach($room->getGroups() as $id){
                 $userCount = mergeArray($userCount,\Model\Driver::userCount($id));
             }
             $tmp1 = 0;
@@ -54,15 +54,15 @@ include_once 'header.php';
             echo '<tr class="group-'.$key.'">';
             echo '<td>Выручка</td>';
             $userSale = 0;
-            foreach($instructor->getGroups() as $id){
+            foreach($room->getGroups() as $id){
                 $userSale = mergeArray($userSale,\Model\Driver::userSales($id));
             }
             $tmp2['plan'] = 0;
             $tmp2['fact'] = 0;
             for($i = 1 ; $i <= 12 ; $i ++ ){
-                /**$instructor->getPrice()*/
+                /**$room->getPrice()*/
                 echo '<td class="text-center">'.($userCount[$i]*1).'<br />'.$userSale[$i].'</td>';
-                $tmp2['plan'] += $userCount[$i]*1; /*$instructor->getPrice()*/
+                $tmp2['plan'] += $userCount[$i]*1; /*$room->getPrice()*/
                 $tmp2['fact'] += $userSale[$i];
             }
             echo '<td class="text-center">'.$tmp2['plan'].' <br /> '.$tmp2['fact'].'</td>';
@@ -71,7 +71,7 @@ include_once 'header.php';
             echo '<tr class="group-'.$key.'">';
             echo '<td>Аренда</td>';
             $roomRent = 0;
-            foreach($instructor->getGroups() as $id){
+            foreach($room->getGroups() as $id){
                 $roomRent = \Model\Driver::roomRent($id);
             }
             $tmp3 = 0;
@@ -86,7 +86,7 @@ include_once 'header.php';
             echo '<td>Зарплата</td>';
             $userSalary['plan'] = array();
             $userSalary['fact'] = array();
-            foreach($instructor->getGroups() as $id){
+            foreach($room->getGroups() as $id){
                 $userSalaryTmp = \Model\Driver::userSalary($id);
 //                $userSalary['plan'] = mergeArray($userSalary['plan'],$userSalaryTmp['plan']);
                 $userSalary = mergeArray($userSalary,$userSalaryTmp);

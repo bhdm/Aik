@@ -13,6 +13,8 @@ class Room extends Driver{
 
     protected $admin;
 
+    protected $groups;
+
     public function __construct($data = null){
         if ($data != null){
             $this->id = $data['ID'];
@@ -104,5 +106,21 @@ class Room extends Driver{
     }
 
 
-
+    public function getGroups(){
+        if ($this->groups == null){
+            $query = 'SELECT * FROM `groupp` g WHERE g.ID_ROOM = '.$this->id.' ORDER BY g.ID ASC';
+            try{
+                $result = Mysqli::$mysqli->query($query);
+            }catch (\Exception $e){
+                $e->getCode().' / '.$e->getMessage();
+            }
+            while ($row = $result->fetch_assoc()){
+                $this->groups[] = $row['ID'];
+            }
+        }
+        if ($this->groups == null){
+            $this->groups = array();
+        }
+        return $this->groups;
+    }
 }
