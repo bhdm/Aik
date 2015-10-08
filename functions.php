@@ -45,3 +45,29 @@ function getMonthShortName($number){
         case 12: return 'Дек';
     }
 }
+global $t;
+$t = 0;
+function mergeArray($array1, $array2){
+    global $t;
+//    echo $t;
+    if ($t == 2){
+//        echo '';
+    }
+    $t ++;
+    $data = array();
+    if ($array2 == null){
+        return $array1;
+    }
+    foreach($array2 as $key => $val){
+        if (isset($array1[$key])){
+            if (is_array($val)){
+                $data[$key] = mergeArray($array1[$key], $val);
+            }else{
+                $data[$key] = $val + $array1[$key];
+            }
+        }else{
+            $data[$key] = $val;
+        }
+    }
+    return $data;
+}

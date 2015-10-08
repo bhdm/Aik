@@ -38,9 +38,9 @@ include_once 'header.php';
 
             echo '<tr class="group-'.$key.'">';
             echo '<td>Кол-во человек</td>';
-            $userCount = 0;
+            $userCount = array();
             foreach($instructor->getGroups() as $id){
-                $userCount  += \Model\Driver::userCount($id);
+                $userCount = mergeArray($userCount,\Model\Driver::userCount($id));
             }
             $tmp1 = 0;
             for($i = 1 ; $i <= 12 ; $i ++ ){
@@ -55,7 +55,7 @@ include_once 'header.php';
             echo '<td>Выручка</td>';
             $userSale = 0;
             foreach($instructor->getGroups() as $id){
-                $userSale += \Model\Driver::userSales($id);
+                $userSale = mergeArray($userSale,\Model\Driver::userSales($id));
             }
             $tmp2['plan'] = 0;
             $tmp2['fact'] = 0;
@@ -84,19 +84,19 @@ include_once 'header.php';
 
             echo '<tr class="group-'.$key.'">';
             echo '<td>Зарплата</td>';
-            $userSalary['plan'] = 0;
-            $userSalary['fact'] = 0;
+            $userSalary['plan'] = array();
+            $userSalary['fact'] = array();
             foreach($instructor->getGroups() as $id){
-                $userSalaryTmp += \Model\Driver::userSalary($id);
-                $userSalary['plan'] += $userSalaryTmp['plan'];
-                $userSalary['fact'] += $userSalaryTmp['fact'];
+                $userSalaryTmp = \Model\Driver::userSalary($id);
+//                $userSalary['plan'] = mergeArray($userSalary['plan'],$userSalaryTmp['plan']);
+                $userSalary = mergeArray($userSalary,$userSalaryTmp);
             }
             $tmp4['plan'] = 0;
             $tmp4['fact'] = 0;
             for($i = 1 ; $i <= 12 ; $i ++ ){
                 echo '<td class="text-center">'.$userSalary[$i]['plan'].' <br /> '.$userSalary[$i]['fact'].'</td>';
-                $tmp2['plan'] += $userSalary[$i]['plan'];
-                $tmp2['fact'] += $userSalary[$i]['fact'];
+                $tmp4['plan'] += $userSalary[$i]['plan'];
+                $tmp4['fact'] += $userSalary[$i]['fact'];
             }
             echo '<td class="text-center">'.$tmp4['plan'].' <br /> '.$tmp4['fact'].'</td>';
             echo '</tr>';
