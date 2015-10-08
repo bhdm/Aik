@@ -44,6 +44,9 @@ require_once 'functions.php';
         }elseif($_GET['type'] == 'instructor'){
             $instructors = $db->findAll('instructor');
             include 'Views/instructor.php';
+        }elseif($_GET['type'] == 'room') {
+            $instructors = $db->findAll('room');
+            include 'Views/room.php';
         }
     }
 
